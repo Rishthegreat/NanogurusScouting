@@ -1,5 +1,4 @@
-from tinydb import TinyDB
-from tinydb import Query
+from tinydb import TinyDB, Query
 from pathlib import Path
 
 db = TinyDB("data.json")
@@ -26,17 +25,21 @@ def prematchScouting(number, auto_notes, auto_preference, endgame_notes, height,
         "height": height,
         "teleop_notes": teleop_notes
     }
-    if (db.contains(Todo.number == number)):
-        db.update({"prematch_scouting": prematch_scoutingDict}, Todo.number == number)
-    else:
-        new_team = {
-            "match": [],
-            "name": getName(number),
-            "number": number,
-            "prematch_scouting": prematch_scoutingDict,
-            "score": 0
-        }
-        db.insert(new_team)
+    try:
+        if (db.contains(Todo.number == number)):
+            db.update({"prematch_scouting": prematch_scoutingDict}, Todo.number == number)
+        else:
+            new_team = {
+                "match": [],
+                "name": getName(number),
+                "number": number,
+                "prematch_scouting": prematch_scoutingDict,
+                "score": 0
+            }
+            db.insert(new_team)
+        return True
+    except:
+        return False
 
 
 def getPrematchScouting(number):

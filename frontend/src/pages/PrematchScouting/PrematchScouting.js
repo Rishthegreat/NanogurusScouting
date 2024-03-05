@@ -1,8 +1,9 @@
 import styles from './styles.module.css'
-import {useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {CustomButton} from "../../components";
 import axios from "axios";
 import {backendLink} from "../../globalConsts";
+import {NotificationContext} from "../../contexes/notificationContext";
 export const PrematchScouting = () => {
     const [teamNumber, setTeamNumber] = useState(null)
     const [robotHeight, setRobotHeight] = useState(null)
@@ -10,9 +11,29 @@ export const PrematchScouting = () => {
         red: null,
         blue: null,
     })
-
+    const autoRef = useRef(null)
+    const teleopRef = useRef(null)
+    const endgameRef = useRef(null)
+    const notif = useContext(NotificationContext)
     const submitData = (data) => {
         axios.post(backendLink + "/prematch", data)
+            .then((res) => {
+                if(res.data.success){
+                    notif.success("Data submitted")
+                    // Clear form
+                    setTeamNumber(null)
+                    setRobotHeight(null)
+                    setAutoPreference({
+                        red: null,
+                        blue: null,
+                    })
+                    autoRef.current.value = ""
+                    teleopRef.current.value = ""
+                    endgameRef.current.value = ""
+                } else {
+                    notif.error("Data not submitted")
+                }
+            })
     }
     const onSubmit = () => {
         axios.post(backendLink + "/getName", {number: teamNumber})
@@ -20,16 +41,16 @@ export const PrematchScouting = () => {
                 if (res.data.name !== null) {
                     submitData(
                         {
-                            teamNumber: teamNumber,
-                            autoNotes: "",
-                            autoPreference: autoPreference,
-                            teleOpNotes: "",
-                            robotHeight: robotHeight,
-                            robotNotes: "",
+                            number: teamNumber,
+                            auto_notes: autoRef.current.value,
+                            auto_preference: autoPreference,
+                            teleop_notes: teleopRef.current.value,
+                            height: robotHeight,
+                            endgame_notes: endgameRef.current.value,
                         }
                     )
                 } else {
-                    console.log("Team not found")
+                    notif.error("Error: Team not found")
                 }
             })
     }
@@ -47,7 +68,7 @@ export const PrematchScouting = () => {
                     </div>
                     <div className={styles.formInputDiv}>
                         <label>Auto Notes: </label>
-                        <textarea/>
+                        <textarea ref={autoRef}/>
                     </div>
                     <div className={styles.formInputDiv}>
                         <label>Auto Preference: </label>
@@ -56,14 +77,14 @@ export const PrematchScouting = () => {
                             <div>
                                 <label>
                                     <input type="radio" name="redAuto" value="nearSide"
-                                           onChange={() => setAutoPreference({...autoPreference, red: "Near Side"})}/>
+                                           onChange={() => setAutoPreference({...autoPreference, red: 0})}/>
                                     Near Side
                                 </label>
                             </div>
                             <div>
                                 <label>
                                     <input type="radio" name="redAuto" value="farSide"
-                                           onChange={() => setAutoPreference({...autoPreference, red: "Far Side"})}/>
+                                           onChange={() => setAutoPreference({...autoPreference, red: 1})}/>
                                     Far Side
                                 </label>
                             </div>
@@ -84,14 +105,14 @@ export const PrematchScouting = () => {
                             <div>
                                 <label>
                                     <input type="radio" name="blueAuto" value="nearSide"
-                                           onChange={() => setAutoPreference({...autoPreference, blue: "Near Side"})}/>
+                                           onChange={() => setAutoPreference({...autoPreference, blue: 0})}/>
                                     Near Side
                                 </label>
                             </div>
                             <div>
                                 <label>
                                     <input type="radio" name="blueAuto" value="farSide"
-                                           onChange={() => setAutoPreference({...autoPreference, blue: "Far Side"})}/>
+                                           onChange={() => setAutoPreference({...autoPreference, blue: 1})}/>
                                     Far Side
                                 </label>
                             </div>
@@ -109,7 +130,7 @@ export const PrematchScouting = () => {
                     </div>
                     <div className={styles.formInputDiv}>
                         <label>Tele-Op Notes: </label>
-                        <textarea/>
+                        <textarea ref={teleopRef}/>
                     </div>
                     <div className={styles.formInputDiv}>
                         <div className={styles.radioSection}>
@@ -138,8 +159,8 @@ export const PrematchScouting = () => {
                         </div>
                     </div>
                     <div className={styles.formInputDiv}>
-                        <label>Robot Notes: </label>
-                        <textarea/>
+                        <label>Endgame Notes: </label>
+                        <textarea ref={endgameRef}/>
                     </div>
                 </div>
                 <CustomButton text={'Submit'} onClick={onSubmit}/>
