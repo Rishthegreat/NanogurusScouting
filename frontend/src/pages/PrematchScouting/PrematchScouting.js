@@ -20,16 +20,8 @@ export const PrematchScouting = () => {
             .then((res) => {
                 if(res.data.success){
                     notif.success("Data submitted")
-                    // Clear form
-                    setTeamNumber(null)
-                    setRobotHeight(null)
-                    setAutoPreference({
-                        red: null,
-                        blue: null,
-                    })
-                    autoRef.current.value = ""
-                    teleopRef.current.value = ""
-                    endgameRef.current.value = ""
+                    // Clear form (not working yet) so just reloading
+                    window.location.reload();
                 } else {
                     notif.error("Data not submitted")
                 }
@@ -42,11 +34,13 @@ export const PrematchScouting = () => {
                     submitData(
                         {
                             number: teamNumber,
-                            auto_notes: autoRef.current.value,
-                            auto_preference: autoPreference,
-                            teleop_notes: teleopRef.current.value,
-                            height: robotHeight,
-                            endgame_notes: endgameRef.current.value,
+                            prematch_data: {
+                                autoNotes: autoRef.current.value,
+                                autoPreference: autoPreference,
+                                teleopNotes: teleopRef.current.value,
+                                height: robotHeight,
+                                endgameNotes: endgameRef.current.value,
+                            }
                         }
                     )
                 } else {
@@ -93,7 +87,7 @@ export const PrematchScouting = () => {
                                         <input type="radio" name="redAuto" value="noPreference"
                                             onChange={() => setAutoPreference({
                                                 ...autoPreference,
-                                                red: "No Preference"
+                                                red: -1
                                             })}/>
                                         No Preference
                                     </label>
@@ -121,7 +115,7 @@ export const PrematchScouting = () => {
                                         <input type="radio" name="blueAuto" value="noPreference"
                                             onChange={() => setAutoPreference({
                                                 ...autoPreference,
-                                                blue: "No Preference"
+                                                blue: -1
                                             })}/>
                                         No Preference
                                     </label>
@@ -138,21 +132,21 @@ export const PrematchScouting = () => {
                             <div>
                                 <label>
                                     <input type="radio" name="robotHeight" value="under12"
-                                           onChange={() => setRobotHeight(3)}/>
+                                           onChange={() => setRobotHeight(2)}/>
                                     Under 12 inches
                                 </label>
                             </div>
                             <div>
                                 <label>
                                     <input type="radio" name="robotHeight" value="under14"
-                                           onChange={() => setRobotHeight(2)}/>
+                                           onChange={() => setRobotHeight(1)}/>
                                     Under 14 inches
                                 </label>
                             </div>
                             <div>
                                 <label>
                                     <input type="radio" name="robotHeight" value="tooTall"
-                                           onChange={() => setRobotHeight(1)}/>
+                                           onChange={() => setRobotHeight(0)}/>
                                     Too tall
                                 </label>
                             </div>

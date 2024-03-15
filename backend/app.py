@@ -16,19 +16,15 @@ def GetName():
 @app.route('/scoutingapi/match', methods=['POST'])
 def MatchScouting():
     return {"success": matchScouting(
-        number=request.json["number"], 
-        match_data = request.json["match_data"]
+        number=request.json["number"],
+        match_data=request.json["match_data"]
     )}
 
 @app.route('/scoutingapi/prematch', methods=['POST'])
 def PrematchScouting():
     return {"success": prematchScouting(
         number=request.json["number"],
-        auto_notes=request.json["auto_notes"],
-        auto_preference=request.json["auto_preference"],
-        endgame_notes=request.json["endgame_notes"],
-        height=request.json["height"],
-        teleop_notes=request.json["teleop_notes"]
+        prematch_data=request.json["prematch_data"]
     )}
 
 if __name__ == '__main__':

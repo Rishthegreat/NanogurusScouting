@@ -1,5 +1,20 @@
 from tinydb import TinyDB, Query
 from pathlib import Path
+'''
+Format:
+PreMatch
+Nearside -> 0
+Farside -> 1
+No Preference -> -1
+
+Too tall -> 0
+Under 14 -> 1
+Under 12 -> 2
+
+Regular Match
+closeSide -> 0
+farSide -> 1
+'''
 
 db = TinyDB("data.json")
 Todo = Query()
@@ -12,28 +27,21 @@ with open(filename1.resolve(), "r") as file:
 
 def getName(number):
     try:
-        return (namesDict[number])
+        return (namesDict[str(number)])
     except:
         return None
 
 
-def prematchScouting(number, auto_notes, auto_preference, endgame_notes, height, teleop_notes):
-    prematch_scoutingDict = {
-        "auto_notes": auto_notes,
-        "auto_preference": auto_preference,
-        "endgame_notes": endgame_notes,
-        "height": height,
-        "teleop_notes": teleop_notes
-    }
+def prematchScouting(number, prematch_data):
     try:
-        if (db.contains(Todo.number == number)):
-            db.update({"prematch_scouting": prematch_scoutingDict}, Todo.number == number)
+        if (db.contains(Todo.number == str(number))):
+            db.update({"prematch_scouting": prematch_data}, Todo.number == str(number))
         else:
             new_team = {
                 "match": [],
                 "name": getName(number),
-                "number": number,
-                "prematch_scouting": prematch_scoutingDict,
+                "number": str(number),
+                "prematchScouting": prematch_data,
                 "score": 0
             }
             db.insert(new_team)
@@ -43,11 +51,20 @@ def prematchScouting(number, auto_notes, auto_preference, endgame_notes, height,
 
 
 def getPrematchScouting(number):
-    return (db.get(Todo.number == number)["prematch_scouting"])
+    return (db.get(Todo.number == number)["prematchScouting"])
 
 
 def matchScouting(number, match_data):  # Returns true if number exists, false otherwise
     try:
+        if (not db.contains(Todo.number == number)):
+            new_team = {
+                "match": [match_data],
+                "name": getName(number),
+                "number": number,
+                "prematchScouting": {},
+                "score": 0
+            }
+            db.insert(new_team)
         matches = db.get(Todo.number == number)["match"]
         matches.append(match_data)
         db.update({"match": matches}, Todo.number == number)
@@ -65,7 +82,7 @@ def matchScouting(number, match_data):  # Returns true if number exists, false o
           "coneStackTele": "0",
           "date": "3/2/2024",
           "lines": "0",
-          "mosiacs": "0",
+          "mosaics": "0",
           "notes": "Parked, dropped",
           "plane": "0",
           "purplePixel": "0", x
