@@ -54,6 +54,28 @@ def matchScouting(number, match_data):  # Returns true if number exists, false o
         return True
     except:
         return False
+    
+"""
+{
+          "backdropAuto": "1",
+          "backdropTele": "5",
+          "backstageAuto": "0",
+          "backstageParking": null, x
+          "backstageTele": "0",
+          "coneStackTele": "0",
+          "date": "3/2/2024",
+          "lines": "0",
+          "mosiacs": "0",
+          "notes": "Parked, dropped",
+          "plane": "0",
+          "purplePixel": "0", x
+          "rigging": null,
+          "teamElement": null, x
+          "yellowPixel": "1", x
+          "autoStart":"close"
+          "alliance":"red"
+        }
+"""
 
 
 def getMatchScouting(number, filter=False, date="1/1/2024"):

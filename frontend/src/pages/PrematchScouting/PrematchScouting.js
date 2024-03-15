@@ -72,68 +72,68 @@ export const PrematchScouting = () => {
                     </div>
                     <div className={styles.formInputDiv}>
                         <label>Auto Preference: </label>
-                        <div className={styles.radioSection}>
-                            <label>Red Alliance:</label>
-                            <div>
-                                <label>
-                                    <input type="radio" name="redAuto" value="nearSide"
-                                           onChange={() => setAutoPreference({...autoPreference, red: 0})}/>
-                                    Near Side
-                                </label>
+                            <div className={styles.radioSection}>
+                                <label>Red Alliance:</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="redAuto" value="nearSide"
+                                            onChange={() => setAutoPreference({...autoPreference, red: 0})}/>
+                                        Near Side
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="redAuto" value="farSide"
+                                            onChange={() => setAutoPreference({...autoPreference, red: 1})}/>
+                                        Far Side
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="redAuto" value="noPreference"
+                                            onChange={() => setAutoPreference({
+                                                ...autoPreference,
+                                                red: "No Preference"
+                                            })}/>
+                                        No Preference
+                                    </label>
+                                </div>
                             </div>
-                            <div>
-                                <label>
-                                    <input type="radio" name="redAuto" value="farSide"
-                                           onChange={() => setAutoPreference({...autoPreference, red: 1})}/>
-                                    Far Side
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="radio" name="redAuto" value="noPreference"
-                                           onChange={() => setAutoPreference({
-                                               ...autoPreference,
-                                               red: "No Preference"
-                                           })}/>
-                                    No Preference
-                                </label>
+                            <br/>
+                            <div className={styles.radioSection}>
+                                <label>Blue Alliance:</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="blueAuto" value="nearSide"
+                                            onChange={() => setAutoPreference({...autoPreference, blue: 0})}/>
+                                        Near Side
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="blueAuto" value="farSide"
+                                            onChange={() => setAutoPreference({...autoPreference, blue: 1})}/>
+                                        Far Side
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="blueAuto" value="noPreference"
+                                            onChange={() => setAutoPreference({
+                                                ...autoPreference,
+                                                blue: "No Preference"
+                                            })}/>
+                                        No Preference
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        <br/>
-                        <div className={styles.radioSection}>
-                            <label>Blue Alliance:</label>
-                            <div>
-                                <label>
-                                    <input type="radio" name="blueAuto" value="nearSide"
-                                           onChange={() => setAutoPreference({...autoPreference, blue: 0})}/>
-                                    Near Side
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="radio" name="blueAuto" value="farSide"
-                                           onChange={() => setAutoPreference({...autoPreference, blue: 1})}/>
-                                    Far Side
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="radio" name="blueAuto" value="noPreference"
-                                           onChange={() => setAutoPreference({
-                                               ...autoPreference,
-                                               blue: "No Preference"
-                                           })}/>
-                                    No Preference
-                                </label>
-                            </div>
+                        <div className={styles.formInputDiv}>
+                            <label>Tele-Op Notes: </label>
+                            <textarea ref={teleopRef}/>
                         </div>
-                    </div>
-                    <div className={styles.formInputDiv}>
-                        <label>Tele-Op Notes: </label>
-                        <textarea ref={teleopRef}/>
-                    </div>
-                    <div className={styles.formInputDiv}>
-                        <div className={styles.radioSection}>
+                        <div className={styles.formInputDiv}>
+                            <div className={styles.radioSection}>
                             <label>Robot Height</label>
                             <div>
                                 <label>

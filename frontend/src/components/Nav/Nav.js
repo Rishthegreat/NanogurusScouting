@@ -8,6 +8,7 @@ export const Nav = () => {
                 <p className={styles.title}>NanoGurus Scouting</p>
                 <div className={styles.linksContainer}>
                     <a href={linksDict.prematch} className={styles.link}>Prematch Scouting</a>
+                    <a href={linksDict.match} className={styles.link}>Match Scouting</a>
                     <a href={linksDict.display} className={styles.link}>Scouting Display</a>
                 </div>
             </div>

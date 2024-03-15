@@ -1,0 +1,43 @@
+.title {
+  text-align: center;
+}
+
+.checkbox {
+  margin: 2%;
+}
+.formContainer {
+  background: var(--lighter-nanogurus-yellow);
+  width: clamp(200px, 80%, 500px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.formInputDiv {
+  margin-bottom: 10px;
+}
+
+.formInputDiv > input,
+.formInputDiv > textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: gray 1px solid;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: var(--off-white);
+}
+
+.formInputDiv > textarea {
+  resize: vertical;
+  min-height: 50px;
+}
+
+.radioSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
