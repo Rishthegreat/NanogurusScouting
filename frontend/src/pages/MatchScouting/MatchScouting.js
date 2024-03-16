@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 import { useContext, useRef, useState } from "react";
 import { CustomButton } from "../../components";
 import axios from "axios";
-import { backendLink } from "../../globalConsts";
+import {backendLink, linksDict} from "../../globalConsts";
 import { NotificationContext } from "../../contexes/notificationContext";
 
 export const MatchScouting = () => {
@@ -28,7 +28,7 @@ export const MatchScouting = () => {
 
   const notif = useContext(NotificationContext);
   const submitData = (data) => {
-    axios.post(backendLink + "/match", data).then((res) => {
+    axios.post(backendLink + linksDict.matchPost, data).then((res) => {
       if (res.data.success) {
         notif.success("Data submitted");
         // Clear form (not working yet) so just reload page)
@@ -39,7 +39,7 @@ export const MatchScouting = () => {
     });
   };
   const onSubmit = () => {
-    axios.post(backendLink + "/getName", { number: teamNumber }).then((res) => {
+    axios.post(backendLink + linksDict.getName, { number: teamNumber }).then((res) => {
       if (res.data.name !== null) {
         submitData({
           number: teamNumber,

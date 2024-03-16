@@ -105,3 +105,7 @@ def getMatchScouting(number, filter=False, date="1/1/2024"):
             if (match["date"] == date):
                 matches.append(match)
     return matches
+
+def getAllData():
+    data = db.all()
+    return data

@@ -8,19 +8,17 @@ import {NotificationProvider} from "./contexes/notificationContext";
 
 function App() {
     return (
-        <div>
+        <BrowserRouter>
             <NotificationProvider>
                 <Notification />
                 <Nav />
-                <BrowserRouter>
-                    <Routes>
-                        <Route path={linksDict.prematch} element={<PrematchScouting />} />
-                        <Route path={linksDict.match} element={<MatchScouting />} />
-                        <Route path={linksDict.display} element={<ScoutingDisplay />} />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route path={linksDict.prematch} element={<PrematchScouting />} />
+                    <Route path={linksDict.match} element={<MatchScouting />} />
+                    <Route path={linksDict.display} element={<ScoutingDisplay />} />
+                </Routes>
             </NotificationProvider>
-        </div>
+        </BrowserRouter>
     )
 }
 export default App;

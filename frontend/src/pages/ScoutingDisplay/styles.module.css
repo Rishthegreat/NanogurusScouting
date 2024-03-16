@@ -1,0 +1,8 @@
+.reloadContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+    gap: 10px;
+}

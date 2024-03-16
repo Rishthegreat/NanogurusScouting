@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import {useContext, useRef, useState} from "react";
 import {CustomButton} from "../../components";
 import axios from "axios";
-import {backendLink} from "../../globalConsts";
+import {backendLink, linksDict} from "../../globalConsts";
 import {NotificationContext} from "../../contexes/notificationContext";
 export const PrematchScouting = () => {
     const [teamNumber, setTeamNumber] = useState(null)
@@ -16,7 +16,7 @@ export const PrematchScouting = () => {
     const endgameRef = useRef(null)
     const notif = useContext(NotificationContext)
     const submitData = (data) => {
-        axios.post(backendLink + "/prematch", data)
+        axios.post(backendLink + linksDict.prematchPost, data)
             .then((res) => {
                 if(res.data.success){
                     notif.success("Data submitted")
@@ -28,7 +28,7 @@ export const PrematchScouting = () => {
             })
     }
     const onSubmit = () => {
-        axios.post(backendLink + "/getName", {number: teamNumber})
+        axios.post(backendLink + linksDict.getName, {number: teamNumber})
             .then((res) => {
                 if (res.data.name !== null) {
                     submitData(

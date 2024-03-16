@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from scouting import getName, prematchScouting, matchScouting
+from scouting import getName, prematchScouting, matchScouting, getAllData
 from flask_cors import CORS
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -26,6 +26,10 @@ def PrematchScouting():
         number=request.json["number"],
         prematch_data=request.json["prematch_data"]
     )}
+
+@app.route('/scoutingapi/getAllData', methods=['GET'])
+def GetAllData():
+    return {"teams": getAllData()}
 
 if __name__ == '__main__':
     app.run(debug=True)
